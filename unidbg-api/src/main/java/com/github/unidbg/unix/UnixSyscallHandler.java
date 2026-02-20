@@ -200,7 +200,9 @@ public abstract class UnixSyscallHandler<T extends NewFileIO> implements Syscall
             Inspector.inspect(before, "gettimeofday tz");
         }
 
-        long currentTimeMillis = currentTimeMillis();
+        //固定时间戳
+        //long currentTimeMillis = currentTimeMillis();
+        long currentTimeMillis = 1734866651123L;
         long tv_sec = currentTimeMillis / 1000;
         long tv_usec = (currentTimeMillis % 1000) * 1000;
         TimeVal32 timeVal = new TimeVal32(tv);
@@ -242,7 +244,11 @@ public abstract class UnixSyscallHandler<T extends NewFileIO> implements Syscall
             Inspector.inspect(before, "gettimeofday tz");
         }
 
-        long currentTimeMillis = currentTimeMillis();
+        //固定时间戳
+        //long currentTimeMillis = currentTimeMillis();
+        //6767F6D8 dbf66766
+        long currentTimeMillis = 1734866651123L;
+
         long tv_sec = currentTimeMillis / 1000;
         long tv_usec = (currentTimeMillis % 1000) * 1000;
         TimeVal64 timeVal = new TimeVal64(tv);
@@ -574,9 +580,10 @@ public abstract class UnixSyscallHandler<T extends NewFileIO> implements Syscall
     }
 
     protected int getrandom(Pointer buf, int bufSize, int flags) {
-        Random random = new Random();
+        //固定随机数，返回全0
+        //Random random = new Random();
         byte[] bytes = new byte[bufSize];
-        random.nextBytes(bytes);
+        //random.nextBytes(bytes);
         buf.write(0, bytes, 0, bytes.length);
         if (log.isDebugEnabled()) {
             log.debug(Inspector.inspectString(bytes, "getrandom buf=" + buf + ", bufSize=" + bufSize + ", flags=0x" + Integer.toHexString(flags)));

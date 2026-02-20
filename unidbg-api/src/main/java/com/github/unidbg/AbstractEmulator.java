@@ -99,9 +99,11 @@ public abstract class AbstractEmulator<T extends NewFileIO> implements Emulator<
         this.processName = processName == null ? "unidbg" : processName;
         this.registerContext = createRegisterContext(backend);
 
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        String pid = name.split("@")[0];
-        this.pid = Integer.parseInt(pid) & 0x7fff;
+        //固定PID
+        //String name = ManagementFactory.getRuntimeMXBean().getName();
+        //String pid = name.split("@")[0];
+        //this.pid = Integer.parseInt(pid) & 0x7fff;
+        this.pid = 6666;
 
         this.svcMemory = new ARMSvcMemory(svcBase, svcSize, this);
         this.threadDispatcher = createThreadDispatcher();
